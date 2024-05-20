@@ -4,7 +4,7 @@ petclinic exercise for jfrog. Build + test with maven, docker building an image 
 # exercise_jfrog
 # 1) Create a GitHub App with your repository
 
-First I made my repository a GitHub App to have an easier and safier integration between GitHub & Jenkins.
+First I made my repository a GitHub App to have an easier and safer integration between GitHub & Jenkins.
 Follow this step by step guide to do so: https://docs.github.com/en/apps/creating-github-apps/registering-a-github-app/registering-a-github-app. 
 Do not forget to note GitHub App ID + copy token generated, we will need them for Jenkins configuration.
 
@@ -12,7 +12,7 @@ Do not forget to note GitHub App ID + copy token generated, we will need them fo
 
 For the exercise I created a Free Trial JFrog Platform but you can use yours if already existing. 
 To be able to upload your Docker images, you need first to create a docker repository on Artifactory. 
-Go to "Repositories" -> "Create a Repository", choose "Pre-Built Setup" and select Docker.
+In JFrog Platform, after login, go to "Repositories" -> "Create a Repository", choose "Pre-Built Setup" and select Docker.
 Add a name and create.
 
 Go to "Administration" -> "User Management" -> "Access Tokens" and generate a scoped token. Enter description, choose a scope (admin in my case) and assign user name for this token. 
@@ -41,8 +41,8 @@ Now we will ensure all dependencies are resolved from Maven Central:
 We can do it in 2 differents ways: 
 a- Creating a global settings.xml into our jenkins and using it for all builds
 b- Creating a .m2/settings.xml file into your project and specifying it in command build step into pipeline
-I chose a in this exercise.
-Go to "Manage Jenkins" -> "Configuration Files" and click on "Add a new Config". Select Global Maven settings.xml, and add this profil + activeProfile in their respective sections:
+I chose a) in this exercise.
+Go to "Manage Jenkins" -> "Configuration Files" and click on "Add a new Config". Select Global Maven settings.xml, and add this profile + activeProfile in their respective sections:
 
   <profiles>
 
@@ -73,20 +73,26 @@ Go to "Manage Jenkins" -> "Configuration Files" and click on "Add a new Config".
   </profiles>
 
   <activeProfiles>
+    
     <activeProfile>maven</activeProfile>
+    
   </activeProfiles>
+
 
 Click "submit".
 Go to "Manage Jenkins" -> "Tools" and in the section "Maven Configuration"/"Global Defaults Configuration", choose "provided global settings.xml" into the list. 
 Select the settings.xml you just created before.
 
 # 4) Configure your job
+
 In jenkins Create a new Item, add a name and choose "pipeline". Click on OK. 
 Your job is created. 
 Tick "This build has parameters" and add a "Text parameter", name "DOCKER_REG_URL" and value your jfrog artifactory docker url value (mine testmatjfrog.jfrog.io).
 Now in "Pipeline" section, choose "Pipeline script from SCM", choose Git as SCM and enter your repository GitHub URL. 
 Choose for Credentials the GitHub App credentials we created in our step 3 (Configure your jenkins).
-Add the branch you want to build and you are done for this section.
+Add the branch you want to build (main here) and you are done for this section.
 Save changes, and your pipeline is ready to run!
 
 # 5) Launch your pipeline
+
+Launch your pipeline and you will build your code, test it, build a docker image and then push it into your artifactory ! 
