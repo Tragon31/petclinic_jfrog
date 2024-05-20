@@ -89,16 +89,24 @@ Select the settings.xml you just created before.
 # 4) Configure your job
 
 In jenkins Create a new Item, add a name and choose "pipeline". Click on OK. 
+
 Your job is created. 
+
 Tick "This build has parameters" and add a "Text parameter", name "DOCKER_REG_URL" and value your jfrog artifactory docker url value (mine testmatjfrog.jfrog.io).
+
 Now in "Pipeline" section, choose "Pipeline script from SCM", choose Git as SCM and enter your repository GitHub URL. 
+
 Choose for Credentials the GitHub App credentials we created in our step 3 (Configure your jenkins).
 Add the branch you want to build (main here) and you are done for this section.
+
 Save changes, and your pipeline is ready to run!
 
 # 5) Launch your pipeline
 
-Launch your pipeline and you will build your code, test it, build a docker image and then push it into your artifactory ! 
+Launch your pipeline and you will build your code, test it, build a docker image and then push it into your artifactory !
+
 Finally, to run docker image, just run:
+
 docker pull ghcr.io/tragon31/petclinic_jfrog/appdemo:latest
+
 docker run ghcr.io/tragon31/petclinic_jfrog/appdemo:latest
