@@ -1,6 +1,9 @@
 # petclinic_jfrog
 petclinic exercise for jfrog. Build + test with maven, docker building an image and jf cli push to jfrog artifactory docker repo.
 
+Please note I worked with local jenkins on a Windows computer, this is why you will find "bat" command into Jenkinsfile. 
+I add a Jenkinsfile_linux for linux instances, basically just change "bat" with "sh" command.
+
 # exercise_jfrog
 # 1) Create a GitHub App with your repository
 
@@ -96,3 +99,6 @@ Save changes, and your pipeline is ready to run!
 # 5) Launch your pipeline
 
 Launch your pipeline and you will build your code, test it, build a docker image and then push it into your artifactory ! 
+Finally, to run docker image, just run:
+docker pull ghcr.io/tragon31/petclinic_jfrog/appdemo:latest
+docker run ghcr.io/tragon31/petclinic_jfrog/appdemo:latest
